@@ -11,7 +11,7 @@ public class Cell {
 	}
 
 	public String getStringValue() {
-		return value == null ? "   " : " " + String.valueOf(value) + " ";
+		return value == null ? "      " : " " + String.format("%4d", value) + " ";
 	}
 
 	public void setValue(Integer value) {

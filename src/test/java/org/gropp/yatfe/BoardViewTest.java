@@ -16,15 +16,15 @@ public class BoardViewTest {
 				.createStrictMock();
 
 		boardView.printLine("Score: 0\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
 
 		EasyMock.replay(boardView);
 		boardView.print();
@@ -42,15 +42,15 @@ public class BoardViewTest {
 				.createStrictMock();
 
 		boardView.printLine("Score: 0\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   | 4 |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   | 8 |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
-		boardView.printLine("|   |   |   |   |\n");
-		boardView.printLine("|---|---|---|---|\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |    4 |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |    8 |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
+		boardView.printLine("|      |      |      |      |\n");
+		boardView.printLine("|------|------|------|------|\n");
 
 		EasyMock.replay(boardView);
 		boardView.print();
@@ -59,14 +59,14 @@ public class BoardViewTest {
 
 	@Test
 	public void printEmptyCell() throws Exception {
-		assertEquals("   ",new Cell().getStringValue());
+		assertEquals("      ",new Cell().getStringValue());
 	}
 
 	@Test
 	public void print2Cell() throws Exception {
 		Cell cell = new Cell();
 		cell.setValue(2);
-		assertEquals(" 2 ",cell.getStringValue());
+		assertEquals("    2 ",cell.getStringValue());
 	}
 
 }

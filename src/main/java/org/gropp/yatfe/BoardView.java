@@ -28,7 +28,7 @@ public class BoardView {
 	private void printDividerLine(List<Cell> row) {
 		StringBuffer line = new StringBuffer();
 		for (int i = 0; i < row.size(); i++) {
-			line.append("|---");
+			line.append("|------");
 		}
 		line.append("|\n");
 		printLine(line.toString());
