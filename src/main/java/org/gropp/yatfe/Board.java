@@ -19,16 +19,31 @@ public class Board {
 		}
 	}
 
-	public List<List<Cell>> getRows() {
+	List<List<Cell>> getRows() {
 		return rows;
 	}
 
-	public List<Cell> getColumn(int columnIndex) {
+	List<Cell> getColumn(int columnIndex) {
 		return rows.stream().map(row -> row.get(columnIndex)).collect(Collectors.toList());
 	}
 
 	private List<Cell> filterEmptyCells(List<Cell> cells) {
 		return cells.stream().filter(cell -> !cell.isEmpty()).collect(Collectors.toList());
+	}
+
+	void collapseCells(List<Cell> cells) {
+		List<Cell> filledCells = filterEmptyCells(cells);
+		for (Cell currentCell : cells) {
+			if (filledCells.isEmpty()) {
+				return;
+			}
+			if (currentCell.isEmpty()) {
+				Cell sourceCell = filledCells.get(0);
+				currentCell.setValue(sourceCell.getValue());
+				sourceCell.setValue(null);
+				filledCells.remove(sourceCell);
+			}
+		}
 	}
 
 	void mergeCells(List<Cell> cells) {
