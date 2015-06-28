@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 public class Board {
 
 	private List<List<Cell>> rows;
+	private int score = 0;
 
 	public Board(int size) {
 		rows = new ArrayList<List<Cell>>(size);
@@ -117,6 +118,7 @@ public class Board {
 				continue;
 			}
 			if (leftCell.merge(currentCell)) {
+				score += leftCell.getValue();
 				leftCell = null;
 				result = true;
 			} else {
@@ -136,6 +138,10 @@ public class Board {
 
 	List<Cell> getAllEmptyCells() {
 		return getRows().stream().flatMap(column -> column.stream()).filter(cell -> cell.isEmpty()).collect(Collectors.toList());
+	}
+
+	int getScore() {
+		return score;
 	}
 
 }

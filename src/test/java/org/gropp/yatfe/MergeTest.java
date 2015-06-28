@@ -1,9 +1,11 @@
 package org.gropp.yatfe;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class MergeTest {
@@ -18,9 +20,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(2), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertTrue(cells.get(2).isEmpty());
+		assertEquals(Integer.valueOf(2), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertTrue(cells.get(2).isEmpty());
+		assertEquals(0,board.getScore());
 	}
 
 	/**
@@ -33,9 +36,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertTrue(cells.get(2).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertTrue(cells.get(2).isEmpty());
+		assertEquals(4,board.getScore());
 	}
 
 	/**
@@ -48,9 +52,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertTrue(cells.get(2).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertTrue(cells.get(2).isEmpty());
+		assertEquals(4,board.getScore());
 	}
 
 	/**
@@ -63,9 +68,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertTrue(cells.get(0).isEmpty());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(1).getValue());
-		Assert.assertTrue(cells.get(2).isEmpty());
+		assertTrue(cells.get(0).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(1).getValue());
+		assertTrue(cells.get(2).isEmpty());
+		assertEquals(4,board.getScore());
 	}
 
 	/**
@@ -78,9 +84,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertEquals(Integer.valueOf(2), cells.get(2).getValue());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertEquals(Integer.valueOf(2), cells.get(2).getValue());
+		assertEquals(4,board.getScore());
 	}
 
 	/**
@@ -93,9 +100,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(1).getValue());
-		Assert.assertTrue(cells.get(2).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertEquals(Integer.valueOf(4), cells.get(1).getValue());
+		assertTrue(cells.get(2).isEmpty());
+		assertEquals(4,board.getScore());
 	}
 
 	/**
@@ -108,9 +116,10 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertEquals(Integer.valueOf(2), cells.get(1).getValue());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(2).getValue());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertEquals(Integer.valueOf(2), cells.get(1).getValue());
+		assertEquals(Integer.valueOf(4), cells.get(2).getValue());
+		assertEquals(0,board.getScore());
 	}
 
 	/**
@@ -123,10 +132,11 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(2).getValue());
-		Assert.assertTrue(cells.get(3).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(2).getValue());
+		assertTrue(cells.get(3).isEmpty());
+		assertEquals(8,board.getScore());
 	}
 
 	/**
@@ -139,11 +149,12 @@ public class MergeTest {
 
 		board.mergeCells(cells);
 
-		Assert.assertEquals(Integer.valueOf(4), cells.get(0).getValue());
-		Assert.assertTrue(cells.get(1).isEmpty());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(2).getValue());
-		Assert.assertEquals(Integer.valueOf(4), cells.get(3).getValue());
-		Assert.assertTrue(cells.get(4).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(0).getValue());
+		assertTrue(cells.get(1).isEmpty());
+		assertEquals(Integer.valueOf(4), cells.get(2).getValue());
+		assertEquals(Integer.valueOf(4), cells.get(3).getValue());
+		assertTrue(cells.get(4).isEmpty());
+		assertEquals(8,board.getScore());
 	}
 
 	private List<Cell> getCells(Integer... values) {
