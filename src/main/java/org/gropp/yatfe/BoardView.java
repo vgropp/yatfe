@@ -11,6 +11,7 @@ public class BoardView {
 	}
 
 	public void print() {
+		printLine("Score: " + board.getScore() + "\n");
 		for (List<Cell> row : board.getRows()) {
 			printDividerLine(row);
 

@@ -15,6 +15,7 @@ public class BoardViewTest {
 				.addMockedMethod("printLine")
 				.createStrictMock();
 
+		boardView.printLine("Score: 0\n");
 		boardView.printLine("|---|---|---|---|\n");
 		boardView.printLine("|   |   |   |   |\n");
 		boardView.printLine("|---|---|---|---|\n");
@@ -40,6 +41,7 @@ public class BoardViewTest {
 				.addMockedMethod("printLine")
 				.createStrictMock();
 
+		boardView.printLine("Score: 0\n");
 		boardView.printLine("|---|---|---|---|\n");
 		boardView.printLine("|   | 4 |   |   |\n");
 		boardView.printLine("|---|---|---|---|\n");
