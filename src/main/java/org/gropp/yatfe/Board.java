@@ -2,6 +2,7 @@ package org.gropp.yatfe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Board {
 
@@ -20,6 +21,10 @@ public class Board {
 
 	public List<List<Cell>> getRows() {
 		return rows;
+	}
+
+	public List<Cell> getColumn(int columnIndex) {
+		return rows.stream().map(row -> row.get(columnIndex)).collect(Collectors.toList());
 	}
 
 }
