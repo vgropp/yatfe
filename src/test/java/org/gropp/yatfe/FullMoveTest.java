@@ -1,5 +1,7 @@
 package org.gropp.yatfe;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +22,7 @@ public class FullMoveTest {
 				.addMockedMethod("collapseCells")
 				.addMockedMethod("getRows")
 				.addMockedMethod("getColumns")
+				.addMockedMethod("getRandomEmptyCell")
 				.createStrictMock();
 
 		rows = new ArrayList<>();
@@ -31,16 +34,33 @@ public class FullMoveTest {
 		row2.add(new Cell());
 		row2.add(new Cell());
 		rows.add(row2);
-
 	}
 
 	@Test
 	public void moveLeft() {
 		EasyMock.expect(board.getRows()).andReturn(rows);
-		board.mergeCells(rows.get(0));
-		board.collapseCells(rows.get(0));
-		board.mergeCells(rows.get(1));
-		board.collapseCells(rows.get(1));
+		EasyMock.expect(board.mergeCells(rows.get(0))).andReturn(true);
+		EasyMock.expect(board.collapseCells(rows.get(0))).andReturn(true);
+		EasyMock.expect(board.mergeCells(rows.get(1))).andReturn(true);
+		EasyMock.expect(board.collapseCells(rows.get(1))).andReturn(true);
+
+		Cell emptyCell = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(emptyCell);
+
+		EasyMock.replay(board);
+		board.left();
+		EasyMock.verify(board);
+
+		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+	}
+
+	@Test
+	public void moveLeftBoardFull() {
+		EasyMock.expect(board.getRows()).andReturn(rows);
+		EasyMock.expect(board.mergeCells(rows.get(0))).andReturn(false);
+		EasyMock.expect(board.collapseCells(rows.get(0))).andReturn(false);
+		EasyMock.expect(board.mergeCells(rows.get(1))).andReturn(false);
+		EasyMock.expect(board.collapseCells(rows.get(1))).andReturn(false);
 
 		EasyMock.replay(board);
 		board.left();
@@ -52,13 +72,36 @@ public class FullMoveTest {
 		EasyMock.expect(board.getRows()).andReturn(rows);
 		ArrayList<Cell> reversedRow1 = new ArrayList<>(rows.get(0));
 		Collections.reverse(reversedRow1);
-		board.mergeCells(reversedRow1);
-		board.collapseCells(reversedRow1);
+		EasyMock.expect(board.mergeCells(reversedRow1)).andReturn(true);
+		EasyMock.expect(board.collapseCells(reversedRow1)).andReturn(true);
 
 		ArrayList<Cell> reversedRow2 = new ArrayList<>(rows.get(1));
 		Collections.reverse(reversedRow2);
-		board.mergeCells(reversedRow2);
-		board.collapseCells(reversedRow2);
+		EasyMock.expect(board.mergeCells(reversedRow2)).andReturn(true);
+		EasyMock.expect(board.collapseCells(reversedRow2)).andReturn(true);
+
+		Cell emptyCell = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(emptyCell);
+
+		EasyMock.replay(board);
+		board.right();
+		EasyMock.verify(board);
+
+		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+	}
+
+	@Test
+	public void moveRighBoardFull() {
+		EasyMock.expect(board.getRows()).andReturn(rows);
+		ArrayList<Cell> reversedRow1 = new ArrayList<>(rows.get(0));
+		Collections.reverse(reversedRow1);
+		EasyMock.expect(board.mergeCells(reversedRow1)).andReturn(false);
+		EasyMock.expect(board.collapseCells(reversedRow1)).andReturn(false);
+
+		ArrayList<Cell> reversedRow2 = new ArrayList<>(rows.get(1));
+		Collections.reverse(reversedRow2);
+		EasyMock.expect(board.mergeCells(reversedRow2)).andReturn(false);
+		EasyMock.expect(board.collapseCells(reversedRow2)).andReturn(false);
 
 		EasyMock.replay(board);
 		board.right();
@@ -68,14 +111,18 @@ public class FullMoveTest {
 	@Test
 	public void moveUp() {
 		EasyMock.expect(board.getColumns()).andReturn(rows);
-		board.mergeCells(rows.get(0));
-		board.collapseCells(rows.get(0));
-		board.mergeCells(rows.get(1));
-		board.collapseCells(rows.get(1));
+		EasyMock.expect(board.mergeCells(rows.get(0))).andReturn(true);
+		EasyMock.expect(board.collapseCells(rows.get(0))).andReturn(true);
+		EasyMock.expect(board.mergeCells(rows.get(1))).andReturn(false);
+		EasyMock.expect(board.collapseCells(rows.get(1))).andReturn(false);
+		Cell emptyCell = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(emptyCell);
 
 		EasyMock.replay(board);
 		board.up();
 		EasyMock.verify(board);
+
+		assertEquals(Integer.valueOf(2), emptyCell.getValue());
 	}
 
 	@Test
@@ -83,16 +130,20 @@ public class FullMoveTest {
 		EasyMock.expect(board.getColumns()).andReturn(rows);
 		ArrayList<Cell> reversedRow1 = new ArrayList<>(rows.get(0));
 		Collections.reverse(reversedRow1);
-		board.mergeCells(reversedRow1);
-		board.collapseCells(reversedRow1);
+		EasyMock.expect(board.mergeCells(reversedRow1)).andReturn(false);
+		EasyMock.expect(board.collapseCells(reversedRow1)).andReturn(false);
 
 		ArrayList<Cell> reversedRow2 = new ArrayList<>(rows.get(1));
 		Collections.reverse(reversedRow2);
-		board.mergeCells(reversedRow2);
-		board.collapseCells(reversedRow2);
+		EasyMock.expect(board.mergeCells(reversedRow2)).andReturn(true);
+		EasyMock.expect(board.collapseCells(reversedRow2)).andReturn(true);
+		Cell emptyCell = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(emptyCell);
 
 		EasyMock.replay(board);
 		board.down();
 		EasyMock.verify(board);
+
+		assertEquals(Integer.valueOf(2), emptyCell.getValue());
 	}
 }

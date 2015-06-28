@@ -3,6 +3,7 @@ package org.gropp.yatfe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Board {
@@ -37,18 +38,26 @@ public class Board {
 	}
 
 	private void moveLeft(List<List<Cell>> rows) {
+		boolean anyAction = false;
 		for (List<Cell> row : rows) {
-			mergeCells(row);
-			collapseCells(row);
+			anyAction |= mergeCells(row);
+			anyAction |= collapseCells(row);
+		}
+		if (anyAction) {
+			getRandomEmptyCell().setValue(2);
 		}
 	}
 
 	private void moveRight(List<List<Cell>> rows) {
+		boolean anyAction = false;
 		for (List<Cell> row : rows) {
 			ArrayList<Cell> reversedRow = new ArrayList<>(row);
 			Collections.reverse(reversedRow);
-			mergeCells(reversedRow);
-			collapseCells(reversedRow);
+			anyAction |= mergeCells(reversedRow);
+			anyAction |= collapseCells(reversedRow);
+		}
+		if (anyAction) {
+			getRandomEmptyCell().setValue(2);
 		}
 	}
 
@@ -72,23 +81,30 @@ public class Board {
 		return cells.stream().filter(cell -> !cell.isEmpty()).collect(Collectors.toList());
 	}
 
-	void collapseCells(List<Cell> cells) {
+	boolean collapseCells(List<Cell> cells) {
 		List<Cell> filledCells = filterEmptyCells(cells);
+		boolean result = false;
+
 		for (Cell currentCell : cells) {
 			if (filledCells.isEmpty()) {
-				return;
+				return result;
 			}
 			if (currentCell.isEmpty()) {
 				Cell sourceCell = filledCells.get(0);
 				currentCell.setValue(sourceCell.getValue());
+				if (!sourceCell.isEmpty()) {
+					result = true;
+				}
 				sourceCell.setValue(null);
 				filledCells.remove(sourceCell);
 			}
 		}
+		return result;
 	}
 
-	void mergeCells(List<Cell> cells) {
+	boolean mergeCells(List<Cell> cells) {
 		List<Cell> filledCells = filterEmptyCells(cells);
+		boolean result = false;
 		Cell leftCell = null;
 		for (Cell currentCell : filledCells) {
 			if (leftCell == null) {
@@ -97,10 +113,24 @@ public class Board {
 			}
 			if (leftCell.merge(currentCell)) {
 				leftCell = null;
+				result = true;
 			} else {
 				leftCell  = currentCell;
 			}
 		}
+		return result;
+	}
+
+	Cell getRandomEmptyCell() {
+		List<Cell> allEmptyCells = getAllEmptyCells();
+		if (allEmptyCells.isEmpty()) {
+			return null;
+		}
+		return allEmptyCells.get(new Random().nextInt(allEmptyCells.size()));
+	}
+
+	List<Cell> getAllEmptyCells() {
+		return getRows().stream().flatMap(column -> column.stream()).filter(cell -> cell.isEmpty()).collect(Collectors.toList());
 	}
 
 }

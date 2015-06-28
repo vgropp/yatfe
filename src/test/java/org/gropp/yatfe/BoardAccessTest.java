@@ -1,8 +1,12 @@
 package org.gropp.yatfe;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -37,6 +41,41 @@ public class BoardAccessTest {
 				assertEquals(board.getRows().get(i).get(n), columns.get(n).get(i));
 			}
 		}
+	}
 
+	@Test
+	public void allEmptyCells() {
+		int size = 3;
+		Board board = new Board(size);
+		assertEquals(3*3,board.getAllEmptyCells().size());
+	}
+
+	@Test
+	public void allButOneEmptyCells() {
+		int size = 3;
+		Board board = new Board(size);
+		Cell cell = board.getRows().get(1).get(1);
+		cell.setValue(2);
+		List<Cell> allEmptyCells = board.getAllEmptyCells();
+		assertEquals(3*3-1,allEmptyCells.size());
+		assertFalse(allEmptyCells.contains(cell));
+	}
+
+	@Test
+	public void getNoRandomEmptyCell() throws Exception {
+		int size = 3;
+		Board board = new Board(size);
+		board.getRows().stream().flatMap(column -> column.stream()).forEach(c -> c.setValue(2));
+
+		assertNull(board.getRandomEmptyCell());
+	}
+
+	@Test
+	public void getRandomEmptyCell() throws Exception {
+		int size = 3;
+		Board board = new Board(size);
+		List<Cell> allCells = board.getRows().stream().flatMap(column -> column.stream()).collect(Collectors.toList());
+
+		assertTrue(allCells.contains(board.getRandomEmptyCell()));
 	}
 }
