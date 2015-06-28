@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -65,7 +64,7 @@ public class BoardAccessTest {
 	public void getNoRandomEmptyCell() throws Exception {
 		int size = 3;
 		Board board = new Board(size);
-		board.getRows().stream().flatMap(column -> column.stream()).forEach(c -> c.setValue(2));
+		board.getAllCells().forEach(c -> c.setValue(2));
 
 		assertNull(board.getRandomEmptyCell());
 	}
@@ -74,8 +73,20 @@ public class BoardAccessTest {
 	public void getRandomEmptyCell() throws Exception {
 		int size = 3;
 		Board board = new Board(size);
-		List<Cell> allCells = board.getRows().stream().flatMap(column -> column.stream()).collect(Collectors.toList());
+		List<Cell> allCells = board.getAllCells();
 
 		assertTrue(allCells.contains(board.getRandomEmptyCell()));
+	}
+
+	@Test
+	public void highestValue() throws Exception {
+		int size = 3;
+		Board board = new Board(size);
+		List<Cell> allCells = board.getAllCells();
+		allCells.get(5).setValue(4);
+		allCells.get(6).setValue(8);
+		allCells.get(4).setValue(12);
+
+		assertEquals(12,board.getHighestValue());
 	}
 }

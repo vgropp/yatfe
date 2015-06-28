@@ -111,6 +111,41 @@ public class Board {
 		return result;
 	}
 
+	boolean isMovePossible() {
+		for (List<Cell> row : getRows()) {
+			ArrayList<Cell> reversedRow = new ArrayList<>(row);
+			Collections.reverse(reversedRow);
+			if (areCellsMovable(row) || areCellsMergable(row) || areCellsMovable(reversedRow) || areCellsMergable(reversedRow)) {
+				return true;
+			}
+		}
+		for (List<Cell> col : getColumns()) {
+			ArrayList<Cell> reversedCol = new ArrayList<>(col);
+			Collections.reverse(reversedCol);
+			if (areCellsMovable(col) || areCellsMergable(col) || areCellsMovable(reversedCol) || areCellsMergable(reversedCol)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	boolean areCellsMovable(List<Cell> cells) {
+		List<Cell> filledCells = filterEmptyCells(cells);
+		return !cells.subList(0, filledCells.size()).equals(filledCells);
+	}
+
+	boolean areCellsMergable(List<Cell> cells) {
+		List<Cell> filledCells = filterEmptyCells(cells);
+		Cell lastCell = null;
+		for (Cell currentCell : filledCells) {
+			if (lastCell != null && lastCell.getValue().equals(currentCell.getValue())) {
+				return true;
+			}
+			lastCell = currentCell;
+		}
+		return false;
+	}
+
 	boolean mergeCells(List<Cell> cells) {
 		List<Cell> filledCells = filterEmptyCells(cells);
 		boolean result = false;
@@ -140,7 +175,15 @@ public class Board {
 	}
 
 	List<Cell> getAllEmptyCells() {
-		return getRows().stream().flatMap(column -> column.stream()).filter(cell -> cell.isEmpty()).collect(Collectors.toList());
+		return getAllCells().stream().filter(cell -> cell.isEmpty()).collect(Collectors.toList());
+	}
+
+	List<Cell> getAllCells() {
+		return getRows().stream().flatMap(column -> column.stream()).collect(Collectors.toList());
+	}
+
+	int getHighestValue() {
+		return getAllCells().stream().filter(c -> !c.isEmpty()).mapToInt(c -> c.getValue()).max().getAsInt();
 	}
 
 	int getScore() {

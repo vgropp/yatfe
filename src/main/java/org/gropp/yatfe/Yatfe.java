@@ -10,6 +10,9 @@ import java.util.Scanner;
  *
  */
 public class Yatfe {
+
+	private static final int MAX_CELL_VALUE = 2048;
+
 	public static void main(String[] args) throws IOException {
 		new Yatfe().run();
 	}
@@ -30,14 +33,22 @@ public class Yatfe {
 			Board board = new Board(size);
 			board.init();
 			BoardView boardView = new BoardView(board);
-			while (true) {
-				aSingleMove(board, boardView, s);
+			while (aSingleMove(board, boardView, s)) {
+				;
 			}
 		}
 	}
 
-	void aSingleMove(Board board, BoardView boardView, Scanner s) {
+	boolean aSingleMove(Board board, BoardView boardView, Scanner s) {
 		boardView.print();
+		if (board.getHighestValue() >= MAX_CELL_VALUE) {
+			System.out.println("you won!");
+			return false;
+		}
+		if (!board.isMovePossible()) {
+			System.out.println("you lost!");
+			return false;
+		}
 		char c = getNextChar(s);
 		switch (c) {
 			case 'a':
@@ -57,6 +68,7 @@ public class Yatfe {
 				System.out.println("unknown input");
 				break;
 		}
+		return true;
 	}
 
 	char getNextChar(Scanner s) {

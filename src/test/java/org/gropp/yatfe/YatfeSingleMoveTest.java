@@ -10,6 +10,37 @@ import org.junit.Test;
 public class YatfeSingleMoveTest {
 
 	@Test
+	public void gameWon() throws Exception {
+		Board board = EasyMock.createStrictMock(Board.class);
+		BoardView boardView = EasyMock.createStrictMock(BoardView.class);
+		Yatfe yatfe = EasyMock.createMockBuilder(Yatfe.class).addMockedMethod("getNextChar").createStrictMock();
+
+		boardView.print();
+		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(2048);
+
+		EasyMock.replay(yatfe,board,boardView);
+		yatfe.aSingleMove(board, boardView, scanner);
+		EasyMock.verify(yatfe,board,boardView);
+	}
+
+	@Test
+	public void gameLost() throws Exception {
+		Board board = EasyMock.createStrictMock(Board.class);
+		BoardView boardView = EasyMock.createStrictMock(BoardView.class);
+		Yatfe yatfe = EasyMock.createMockBuilder(Yatfe.class).addMockedMethod("getNextChar").createStrictMock();
+
+		boardView.print();
+		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(1024);
+		EasyMock.expect(board.isMovePossible()).andReturn(false);
+
+		EasyMock.replay(yatfe,board,boardView);
+		yatfe.aSingleMove(board, boardView, scanner);
+		EasyMock.verify(yatfe,board,boardView);
+	}
+
+	@Test
 	public void moveUp() throws Exception {
 		Board board = EasyMock.createStrictMock(Board.class);
 		BoardView boardView = EasyMock.createStrictMock(BoardView.class);
@@ -17,6 +48,8 @@ public class YatfeSingleMoveTest {
 
 		boardView.print();
 		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(16);
+		EasyMock.expect(board.isMovePossible()).andReturn(true);
 		EasyMock.expect(yatfe.getNextChar(scanner)).andReturn('w');
 		board.up();
 
@@ -33,6 +66,8 @@ public class YatfeSingleMoveTest {
 
 		boardView.print();
 		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(16);
+		EasyMock.expect(board.isMovePossible()).andReturn(true);
 		EasyMock.expect(yatfe.getNextChar(scanner)).andReturn('s');
 		board.down();
 
@@ -49,6 +84,8 @@ public class YatfeSingleMoveTest {
 
 		boardView.print();
 		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(16);
+		EasyMock.expect(board.isMovePossible()).andReturn(true);
 		EasyMock.expect(yatfe.getNextChar(scanner)).andReturn('a');
 		board.left();
 
@@ -65,6 +102,8 @@ public class YatfeSingleMoveTest {
 
 		boardView.print();
 		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(16);
+		EasyMock.expect(board.isMovePossible()).andReturn(true);
 		EasyMock.expect(yatfe.getNextChar(scanner)).andReturn('d');
 		board.right();
 
@@ -81,6 +120,8 @@ public class YatfeSingleMoveTest {
 
 		boardView.print();
 		Scanner scanner = getScanner();
+		EasyMock.expect(board.getHighestValue()).andReturn(16);
+		EasyMock.expect(board.isMovePossible()).andReturn(true);
 		EasyMock.expect(yatfe.getNextChar(scanner)).andReturn('q');
 
 		EasyMock.replay(yatfe,board,boardView);
