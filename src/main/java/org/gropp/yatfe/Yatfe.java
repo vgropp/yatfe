@@ -15,9 +15,19 @@ public class Yatfe {
 	}
 
 	void run() {
-		System.out.println("Enter grid size: ");
+		System.out.println("Enter grid size (default and minimum 4): ");
 		try (Scanner s = new Scanner(new InputStreamReader(System.in, Charset.defaultCharset()))) {
-			Board board = new Board(s.nextInt());
+			Integer size = 4;
+			try {
+				size = Integer.valueOf(s.next());
+				if (size < 4 ) {
+					System.out.println("falling back to default 4...");
+					size = 4;
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("falling back to default 4...");
+			}
+			Board board = new Board(size);
 			board.init();
 			BoardView boardView = new BoardView(board);
 			while (true) {
