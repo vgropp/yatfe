@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BoardInit {
+public class BoardInitTest {
 
 	/**
 	 *	test if board is successfully initialized and empty
@@ -15,13 +15,11 @@ public class BoardInit {
 		int size = 5;
 		Board board = new Board(size);
 
-		Assert.assertEquals(board.getRows().size(),size);
-		for (int i = 0; i < size; i++) {
-			List<Cell> currentRow = board.getRows().get(i);
+		List<List<Cell>> rows = board.getRows();
+		Assert.assertEquals(size,rows.size());
+		for (List<Cell> currentRow : rows) {
 			Assert.assertEquals(currentRow.size(),size);
-			for (int n = 0; n < size; n++) {
-				Assert.assertNull(currentRow.get(n).getValue());
-			}
+			currentRow.stream().map(cell -> cell.getValue()).forEach(Assert::assertNull);
 		}
 	}
 }
