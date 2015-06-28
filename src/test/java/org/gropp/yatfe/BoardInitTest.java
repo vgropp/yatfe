@@ -27,21 +27,18 @@ public class BoardInitTest {
 	}
 
 	@Test
-	public void init2Cells() throws Exception {
+	public void initCells() throws Exception {
 		Board board = EasyMock.createMockBuilder(Board.class)
 				.addMockedMethod("getRandomEmptyCell")
 				.createStrictMock();
 
 		Cell cell1 = new Cell();
 		EasyMock.expect(board.getRandomEmptyCell()).andReturn(cell1);
-		Cell cell2 = new Cell();
-		EasyMock.expect(board.getRandomEmptyCell()).andReturn(cell2);
 
 		EasyMock.replay(board);
 		board.init();
 		EasyMock.verify(board);
 
 		assertTrue(cell1.getValue().equals(2) || cell1.getValue().equals(4));
-		assertTrue(cell2.getValue().equals(2) || cell2.getValue().equals(4));
 	}
 }
