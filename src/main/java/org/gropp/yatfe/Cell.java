@@ -1,5 +1,7 @@
 package org.gropp.yatfe;
 
+import java.util.Random;
+
 public class Cell {
 
 	private Integer value;
@@ -10,6 +12,15 @@ public class Cell {
 
 	public void setValue(Integer value) {
 		this.value = value;
+	}
+
+	public void newValue() {
+		int ran = new Random().nextInt(10);
+		if (ran < 9) {
+			value = 2;
+		} else {
+			value = 4;
+		}
 	}
 
 	public boolean isEmpty() {

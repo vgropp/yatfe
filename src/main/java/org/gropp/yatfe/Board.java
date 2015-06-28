@@ -44,7 +44,7 @@ public class Board {
 			anyAction |= collapseCells(row);
 		}
 		if (anyAction) {
-			getRandomEmptyCell().setValue(2);
+			getRandomEmptyCell().newValue();
 		}
 	}
 
@@ -57,7 +57,7 @@ public class Board {
 			anyAction |= collapseCells(reversedRow);
 		}
 		if (anyAction) {
-			getRandomEmptyCell().setValue(2);
+			getRandomEmptyCell().newValue();
 		}
 	}
 

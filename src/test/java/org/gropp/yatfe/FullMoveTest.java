@@ -1,6 +1,6 @@
 package org.gropp.yatfe;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +51,7 @@ public class FullMoveTest {
 		board.left();
 		EasyMock.verify(board);
 
-		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+		assertTrue(emptyCell.getValue().equals(2) || emptyCell.getValue().equals(4));
 	}
 
 	@Test
@@ -87,7 +87,7 @@ public class FullMoveTest {
 		board.right();
 		EasyMock.verify(board);
 
-		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+		assertTrue(emptyCell.getValue().equals(2) || emptyCell.getValue().equals(4));
 	}
 
 	@Test
@@ -122,7 +122,7 @@ public class FullMoveTest {
 		board.up();
 		EasyMock.verify(board);
 
-		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+		assertTrue(emptyCell.getValue().equals(2) || emptyCell.getValue().equals(4));
 	}
 
 	@Test
@@ -144,6 +144,6 @@ public class FullMoveTest {
 		board.down();
 		EasyMock.verify(board);
 
-		assertEquals(Integer.valueOf(2), emptyCell.getValue());
+		assertTrue(emptyCell.getValue().equals(2) || emptyCell.getValue().equals(4));
 	}
 }
