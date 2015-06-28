@@ -27,4 +27,24 @@ public class Board {
 		return rows.stream().map(row -> row.get(columnIndex)).collect(Collectors.toList());
 	}
 
+	private List<Cell> filterEmptyCells(List<Cell> cells) {
+		return cells.stream().filter(cell -> !cell.isEmpty()).collect(Collectors.toList());
+	}
+
+	void mergeCells(List<Cell> cells) {
+		List<Cell> filledCells = filterEmptyCells(cells);
+		Cell leftCell = null;
+		for (Cell currentCell : filledCells) {
+			if (leftCell == null) {
+				leftCell  = currentCell;
+				continue;
+			}
+			if (leftCell.merge(currentCell)) {
+				leftCell = null;
+			} else {
+				leftCell  = currentCell;
+			}
+		}
+	}
+
 }
