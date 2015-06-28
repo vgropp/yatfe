@@ -39,6 +39,36 @@ public class CollapseCellsTest {
 	}
 
 	/**
+	 * 2|-|- => 2|-|-
+	 */
+	@Test
+	public void noMove() {
+		Board board = new Board(3);
+		List<Cell> cells = getCells(2,null,null);
+
+		board.collapseCells(cells);
+
+		Assert.assertEquals(Integer.valueOf(2), cells.get(0).getValue());
+		Assert.assertTrue(cells.get(1).isEmpty());
+		Assert.assertTrue(cells.get(2).isEmpty());
+	}
+
+	/**
+	 * 2|-|2 => 2|2|-
+	 */
+	@Test
+	public void moveOne() {
+		Board board = new Board(3);
+		List<Cell> cells = getCells(2,null,2);
+
+		board.collapseCells(cells);
+
+		Assert.assertEquals(Integer.valueOf(2), cells.get(0).getValue());
+		Assert.assertEquals(Integer.valueOf(2), cells.get(1).getValue());
+		Assert.assertTrue(cells.get(2).isEmpty());
+	}
+
+	/**
 	 * -|2|4 => 2|4|-
 	 */
 	@Test

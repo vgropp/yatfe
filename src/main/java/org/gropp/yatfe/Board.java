@@ -102,6 +102,10 @@ public class Board {
 				}
 				sourceCell.setValue(null);
 				filledCells.remove(sourceCell);
+			} else {
+				if (currentCell.equals(filledCells.get(0))) {
+					filledCells.remove(currentCell);
+				}
 			}
 		}
 		return result;
