@@ -22,4 +22,21 @@ public class BoardAccessTest {
 			assertEquals(board.getRows().get(i).get(columnIndex), column2.get(i));
 		}
 	}
+
+	/**
+	 * transform all columns
+	 */
+	@Test
+	public void getColumns() {
+		int size = 3;
+		Board board = new Board(size);
+		List<List<Cell>> columns = board.getColumns();
+		assertEquals(size,columns.size());
+		for (int i = 0; i < size; i++) {
+			for (int n = 0; n < size; n++) {
+				assertEquals(board.getRows().get(i).get(n), columns.get(n).get(i));
+			}
+		}
+
+	}
 }

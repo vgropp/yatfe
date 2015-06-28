@@ -1,6 +1,7 @@
 package org.gropp.yatfe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,46 @@ public class Board {
 
 	List<Cell> getColumn(int columnIndex) {
 		return rows.stream().map(row -> row.get(columnIndex)).collect(Collectors.toList());
+	}
+
+	List<List<Cell>> getColumns() {
+		List<List<Cell>> columns = new ArrayList<>();
+		for (int i = 0; i < rows.get(0).size(); i++) {
+			columns.add(getColumn(i));
+		}
+		return columns;
+	}
+
+	private void moveLeft(List<List<Cell>> rows) {
+		for (List<Cell> row : rows) {
+			mergeCells(row);
+			collapseCells(row);
+		}
+	}
+
+	private void moveRight(List<List<Cell>> rows) {
+		for (List<Cell> row : rows) {
+			ArrayList<Cell> reversedRow = new ArrayList<>(row);
+			Collections.reverse(reversedRow);
+			mergeCells(reversedRow);
+			collapseCells(reversedRow);
+		}
+	}
+
+	public void left() {
+		moveLeft(getRows());
+	}
+
+	public void right() {
+		moveRight(getRows());
+	}
+
+	public void up() {
+		moveLeft(getColumns());
+	}
+
+	public void down() {
+		moveRight(getColumns());
 	}
 
 	private List<Cell> filterEmptyCells(List<Cell> cells) {
