@@ -1,7 +1,10 @@
 package org.gropp.yatfe;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
+import org.easymock.EasyMock;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,5 +24,24 @@ public class BoardInitTest {
 			Assert.assertEquals(currentRow.size(),size);
 			currentRow.stream().map(cell -> cell.getValue()).forEach(Assert::assertNull);
 		}
+	}
+
+	@Test
+	public void init2Cells() throws Exception {
+		Board board = EasyMock.createMockBuilder(Board.class)
+				.addMockedMethod("getRandomEmptyCell")
+				.createStrictMock();
+
+		Cell cell1 = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(cell1);
+		Cell cell2 = new Cell();
+		EasyMock.expect(board.getRandomEmptyCell()).andReturn(cell2);
+
+		EasyMock.replay(board);
+		board.init();
+		EasyMock.verify(board);
+
+		assertTrue(cell1.getValue().equals(2) || cell1.getValue().equals(4));
+		assertTrue(cell2.getValue().equals(2) || cell2.getValue().equals(4));
 	}
 }

@@ -10,6 +10,10 @@ public class Cell {
 		return value;
 	}
 
+	public String getStringValue() {
+		return value == null ? "   " : " " + String.valueOf(value) + " ";
+	}
+
 	public void setValue(Integer value) {
 		this.value = value;
 	}

@@ -6,6 +6,9 @@ package org.gropp.yatfe;
  */
 public class Yatfe {
 	public static void main(String[] args) {
-		System.out.println("\nyatfe!\n");
+		Board board = new Board(4);
+		board.init();
+		BoardView boardView = new BoardView(board);
+		boardView.print();
 	}
 }

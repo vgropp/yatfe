@@ -21,6 +21,11 @@ public class Board {
 		}
 	}
 
+	void init() {
+		getRandomEmptyCell().newValue();
+		getRandomEmptyCell().newValue();
+	}
+
 	List<List<Cell>> getRows() {
 		return rows;
 	}
