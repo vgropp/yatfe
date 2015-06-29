@@ -59,14 +59,16 @@ public class BoardViewTest {
 
 	@Test
 	public void printEmptyCell() throws Exception {
-		assertEquals("      ",new Cell().getStringValue());
+		BoardView boardView = new BoardView(null);
+		assertEquals("      ",boardView.getStringValue(new Cell()));
 	}
 
 	@Test
 	public void print2Cell() throws Exception {
+		BoardView boardView = new BoardView(null);
 		Cell cell = new Cell();
 		cell.setValue(2);
-		assertEquals("    2 ",cell.getStringValue());
+		assertEquals("    2 ",boardView.getStringValue(cell));
 	}
 
 }

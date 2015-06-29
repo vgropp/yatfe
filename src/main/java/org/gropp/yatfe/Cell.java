@@ -10,10 +10,6 @@ public class Cell {
 		return value;
 	}
 
-	public String getStringValue() {
-		return value == null ? "      " : " " + String.format("%4d", value) + " ";
-	}
-
 	public void setValue(Integer value) {
 		this.value = value;
 	}

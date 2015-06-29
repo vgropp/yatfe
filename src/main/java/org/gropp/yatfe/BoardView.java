@@ -17,7 +17,7 @@ public class BoardView {
 
 			StringBuffer line = new StringBuffer();
 			for (Cell cell : row) {
-				line.append("|" + cell.getStringValue());
+				line.append("|" + getStringValue(cell));
 			}
 			line.append("|\n");
 			printLine(line.toString());
@@ -32,6 +32,11 @@ public class BoardView {
 		}
 		line.append("|\n");
 		printLine(line.toString());
+	}
+
+
+	String getStringValue(Cell cell) {
+		return cell.getValue() == null ? "      " : " " + String.format("%4d", cell.getValue()) + " ";
 	}
 
 	void printLine(String string) {
