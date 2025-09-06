@@ -5,6 +5,7 @@ import java.util.Random;
 public class Cell {
 
 	private Integer value;
+	private Random random = new Random();
 
 	public Integer getValue() {
 		return value;
@@ -15,7 +16,7 @@ public class Cell {
 	}
 
 	public void newValue() {
-		int ran = new Random().nextInt(10);
+		int ran = random.nextInt(10);
 		if (ran < 9) {
 			value = 2;
 		} else {

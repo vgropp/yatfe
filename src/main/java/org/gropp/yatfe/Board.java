@@ -10,6 +10,7 @@ public class Board {
 
 	private List<List<Cell>> rows;
 	private int score = 0;
+	private Random random = new Random();
 
 	public Board(int size) {
 		rows = new ArrayList<List<Cell>>(size);
@@ -171,7 +172,7 @@ public class Board {
 		if (allEmptyCells.isEmpty()) {
 			return null;
 		}
-		return allEmptyCells.get(new Random().nextInt(allEmptyCells.size()));
+		return allEmptyCells.get(random.nextInt(allEmptyCells.size()));
 	}
 
 	List<Cell> getAllEmptyCells() {
